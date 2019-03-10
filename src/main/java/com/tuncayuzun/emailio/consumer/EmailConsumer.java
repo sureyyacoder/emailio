@@ -10,27 +10,25 @@ import com.tuncayuzun.emailio.model.Email;
 
 @Component
 public class EmailConsumer {
-	
+
 	@Autowired
 	private JavaMailSender javaMailSender;
 
-    @JmsListener(destination = "welcome-password-queue")
-    public void welcomeAndPasswordListener(Email email){
-        System.out.println("Received Welcome Message; "+email);
-        
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        
-        simpleMailMessage.setTo("*****@gmail.com");
-        simpleMailMessage.setSubject("Welcome");
-        simpleMailMessage.setText("We are very pleased to have you join us...");
- 
-     
-        javaMailSender.send(simpleMailMessage);
-    }
-    
-    @JmsListener(destination = "newsletter-queue")
-    public void newsletterlListener(String msg){
-        System.out.println("Received Newsletter Message; "+msg);
-    }
-   
+	@JmsListener(destination = "welcome-password-queue")
+	public void welcomeAndPasswordListener(Email email) {
+		System.out.println("Received Welcome Message; " + email);
+
+		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+		simpleMailMessage.setTo("*****@gmail.com");
+		simpleMailMessage.setSubject("Welcome");
+		simpleMailMessage.setText("We are very pleased to have you join us...");
+
+		javaMailSender.send(simpleMailMessage);
+	}
+
+	@JmsListener(destination = "newsletter-queue")
+	public void newsletterlListener(String msg) {
+		System.out.println("Received Newsletter Message; " + msg);
+	}
+
 }

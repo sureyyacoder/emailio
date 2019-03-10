@@ -10,20 +10,19 @@ import com.tuncayuzun.emailio.repository.EmailRepository;
 
 @Service
 public class EmailService {
-	
-	private Logger LOG =  LoggerFactory.getLogger(Email.class);
-	
+
+	private Logger LOG = LoggerFactory.getLogger(Email.class);
+
 	@Autowired
 	EmailRepository emailRepository;
-	
-	
+
 	public void saveEmail(Email email) {
 		try {
 			emailRepository.save(email);
 		} catch (Exception e) {
-			LOG.error("An error occured during email saving : "+e.getMessage());
+			LOG.error("An error occured during email saving : " + e.getMessage());
 		}
-		
+
 	}
 
 }
