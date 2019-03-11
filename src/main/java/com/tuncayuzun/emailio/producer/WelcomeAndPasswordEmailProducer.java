@@ -1,4 +1,5 @@
 package com.tuncayuzun.emailio.producer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jms.core.JmsTemplate;
@@ -15,27 +16,24 @@ import com.tuncayuzun.emailio.service.EmailService;
 import javax.jms.Queue;
 
 @RestController
-@RequestMapping(path="api/emailio/")
+@RequestMapping(path = "api/emailio/")
 public class WelcomeAndPasswordEmailProducer {
 
-	
 	@Autowired
 	private EmailService emailService;
 
 	@Autowired
-    private Queue welcomeAndPasswordQueue;
+	private Queue welcomeAndPasswordQueue;
 
-    @Autowired
-    private JmsTemplate jmsTemplate;
+	@Autowired
+	private JmsTemplate jmsTemplate;
 
+	@PostMapping("welcome")
+	public void welcome(@RequestBody Email email) {
 
-    @PostMapping("welcome")
-    public void welcome(@RequestBody Email email ){
-    	
-        jmsTemplate.convertAndSend(welcomeAndPasswordQueue, email);
-        emailService.saveEmail(email);
+		jmsTemplate.convertAndSend(welcomeAndPasswordQueue, email);
+		emailService.saveEmail(email);
 
-    }
-
+	}
 
 }
