@@ -1,27 +1,20 @@
 package com.tuncayuzun.emailio.model;
 
 import javax.persistence.*;
-
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
-public class Email {
-
+public class ForgotPasswordEmail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String to;
 	private String cc;
-	private String header;
+	private String subject;
 	private String body;
-	private String type;
 	private String status;
-
+	private String passwordUrl;
 
 }

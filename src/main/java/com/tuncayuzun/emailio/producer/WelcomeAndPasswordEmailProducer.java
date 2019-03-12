@@ -1,19 +1,19 @@
 package com.tuncayuzun.emailio.producer;
 
+import java.text.MessageFormat;
+
+import javax.jms.Queue;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tuncayuzun.emailio.model.Email;
+import com.tuncayuzun.emailio.model.ForgotPasswordEmail;
+import com.tuncayuzun.emailio.model.WelcomeEmail;
 import com.tuncayuzun.emailio.service.EmailService;
-
-import javax.jms.Queue;
 
 @RestController
 @RequestMapping(path = "api/emailio/")
@@ -29,10 +29,36 @@ public class WelcomeAndPasswordEmailProducer {
 	private JmsTemplate jmsTemplate;
 
 	@PostMapping("welcome")
-	public void welcome(@RequestBody Email email) {
+	public WelcomeEmail welcomeSend(@RequestBody WelcomeEmail email) {
+		
+		email.setStatus("sending to queue");
+		email.setSubject("Hoşgeldiniz!");
+		email.setBody(MessageFormat.format("Sayın {0} {1}, aramıza hoşgeldiniz." , email.getFirstName(), email.getLastName()));
+		emailService.saveWelcomeEmail(email);
+		
+		jmsTemplate.convertAndSend(welcomeAndPasswordQueue,email );
+	
+		
 
+		return email;
+
+	}
+	
+	@PostMapping("password")
+	public ForgotPasswordEmail forgotPasswordSend(@RequestBody ForgotPasswordEmail email) {
+		
+		email.setStatus("sending to queue");
+		email.setSubject("Şifre yenileme");
+		email.setBody(MessageFormat.format("Şifrenizi yenilemek için aşağıdaki linke tıklayınız. {0}" , email.getPasswordUrl()));
+		emailService.savePasswordEmail(email);
+		
 		jmsTemplate.convertAndSend(welcomeAndPasswordQueue, email);
-		emailService.saveEmail(email);
+		
+		
+		
+		return email;
+		
+		
 
 	}
 

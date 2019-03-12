@@ -5,22 +5,50 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tuncayuzun.emailio.model.Email;
-import com.tuncayuzun.emailio.repository.EmailRepository;
+import com.tuncayuzun.emailio.model.ForgotPasswordEmail;
+import com.tuncayuzun.emailio.model.NewsletterEmail;
+import com.tuncayuzun.emailio.model.WelcomeEmail;
+import com.tuncayuzun.emailio.repository.ForgotPasswordRepository;
+import com.tuncayuzun.emailio.repository.NewsletterEmailRepository;
+import com.tuncayuzun.emailio.repository.WelcomeEmailRepository;
 
 @Service
 public class EmailService {
 
-	private Logger LOG = LoggerFactory.getLogger(Email.class);
+	private Logger LOG = LoggerFactory.getLogger(WelcomeEmail.class);
 
 	@Autowired
-	EmailRepository emailRepository;
+	WelcomeEmailRepository welcomeEmailRepository;
+	
+	@Autowired
+	ForgotPasswordRepository forgotPasswordRepository;
+	
+	@Autowired
+	NewsletterEmailRepository newsletterEmailRepository;
 
-	public void saveEmail(Email email) {
+	public void saveWelcomeEmail(WelcomeEmail email) {
 		try {
-			emailRepository.save(email);
+			welcomeEmailRepository.save(email);
 		} catch (Exception e) {
-			LOG.error("An error occured during email saving : " + e.getMessage());
+			LOG.error("An error occured during welcome email saving : " + e.getMessage());
+		}
+
+	}
+	
+	public void savePasswordEmail(ForgotPasswordEmail email) {
+		try {
+			forgotPasswordRepository.save(email);
+		} catch (Exception e) {
+			LOG.error("An error occured during forgot password email saving : " + e.getMessage());
+		}
+
+	}
+	
+	public void saveNewsletterEmail(NewsletterEmail email) {
+		try {
+			newsletterEmailRepository.save(email);
+		} catch (Exception e) {
+			LOG.error("An error occured during newsletter email saving : " + e.getMessage());
 		}
 
 	}
