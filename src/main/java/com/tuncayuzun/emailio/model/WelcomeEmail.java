@@ -1,5 +1,7 @@
 package com.tuncayuzun.emailio.model;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 import lombok.*;
 
@@ -7,8 +9,9 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class WelcomeEmail {
+public class WelcomeEmail implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

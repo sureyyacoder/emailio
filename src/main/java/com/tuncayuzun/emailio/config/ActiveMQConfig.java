@@ -54,6 +54,7 @@ public class ActiveMQConfig {
 		JmsTemplate template = new JmsTemplate();
 		template.setMessageConverter(jacksonJmsMessageConverter());
 		template.setConnectionFactory(activeMQConnectionFactory());
+		template.setReceiveTimeout(60000);
 		return template;
 	}
 

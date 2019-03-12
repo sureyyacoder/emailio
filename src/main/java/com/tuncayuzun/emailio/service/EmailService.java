@@ -19,10 +19,10 @@ public class EmailService {
 
 	@Autowired
 	WelcomeEmailRepository welcomeEmailRepository;
-	
+
 	@Autowired
 	ForgotPasswordRepository forgotPasswordRepository;
-	
+
 	@Autowired
 	NewsletterEmailRepository newsletterEmailRepository;
 
@@ -30,27 +30,60 @@ public class EmailService {
 		try {
 			welcomeEmailRepository.save(email);
 		} catch (Exception e) {
-			LOG.error("An error occured during welcome email saving : " + e.getMessage());
+			LOG.error("An error occured: " + e.getMessage());
 		}
-
 	}
-	
+
+	public void updateWelcomeEmailStatus(WelcomeEmail email) {
+		try {
+			WelcomeEmail forUpdate = welcomeEmailRepository.findById(email.getId()).orElse(new WelcomeEmail());
+			forUpdate.setStatus("failed");
+			welcomeEmailRepository.save(forUpdate);
+			LOG.info("Welcome Email status changed to fail!");
+		} catch (Exception e) {
+			LOG.error("An error occured: " + e.getMessage());
+		}
+	}
+
 	public void savePasswordEmail(ForgotPasswordEmail email) {
 		try {
 			forgotPasswordRepository.save(email);
 		} catch (Exception e) {
-			LOG.error("An error occured during forgot password email saving : " + e.getMessage());
+			LOG.error("An error occured: " + e.getMessage());
 		}
 
 	}
-	
+
+	public void updatePasswordEmailStatus(ForgotPasswordEmail email) {
+		try {
+			ForgotPasswordEmail forUpdate = forgotPasswordRepository.findById(email.getId())
+					.orElse(new ForgotPasswordEmail());
+			forUpdate.setStatus("failed");
+			forgotPasswordRepository.save(forUpdate);
+			LOG.info("Forgot Password Email status changed to fail!");
+		} catch (Exception e) {
+			LOG.error("An error occured: " + e.getMessage());
+		}
+	}
+
 	public void saveNewsletterEmail(NewsletterEmail email) {
 		try {
 			newsletterEmailRepository.save(email);
 		} catch (Exception e) {
-			LOG.error("An error occured during newsletter email saving : " + e.getMessage());
+			LOG.error("An error occured: " + e.getMessage());
 		}
 
+	}
+
+	public void updateNewsletterEmailStatus(NewsletterEmail email) {
+		try {
+			NewsletterEmail forUpdate = newsletterEmailRepository.findById(email.getId()).orElse(new NewsletterEmail());
+			forUpdate.setStatus("failed");
+			newsletterEmailRepository.save(forUpdate);
+			LOG.info("Newsletter Email status changed to fail!");
+		} catch (Exception e) {
+			LOG.error("An error occured: " + e.getMessage());
+		}
 	}
 
 }
