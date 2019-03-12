@@ -20,10 +20,11 @@
 
 Note: [Allow to less secure app for Gmail](https://myaccount.google.com/lesssecureapps) 		
 
-3-  cd /path_to_project
-			mvn spring-boot:run
+3-      cd /path_to_project
+
+		mvn spring-boot:run
 			   
 ## Urls
 
-ActiveMQ Dashboard : http://localhost:8181/admin/
-H2 DB : http://localhost:8080/h2
+    ActiveMQ Dashboard : http://localhost:8181/admin/
+    H2 DB : http://localhost:8080/h2
