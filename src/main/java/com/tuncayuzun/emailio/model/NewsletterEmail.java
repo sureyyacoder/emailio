@@ -1,9 +1,15 @@
 package com.tuncayuzun.emailio.model;
 
 import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.*;
-import lombok.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
@@ -22,7 +28,7 @@ public class NewsletterEmail implements Serializable {
 	private String status;
 	private String firstName;
 	private String lastName;
-	private Date newsletterDate;
+	private String newsletterDate;
 	private String newsletter;
 
 }

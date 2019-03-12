@@ -14,7 +14,7 @@ public class AppConfig {
 		RetryTemplate retryTemplate = new RetryTemplate();
 
 		FixedBackOffPolicy fixedBackOffPolicy = new FixedBackOffPolicy();
-		fixedBackOffPolicy.setBackOffPeriod(15000);
+		fixedBackOffPolicy.setBackOffPeriod(60000);
 		retryTemplate.setBackOffPolicy(fixedBackOffPolicy);
 
 		SimpleRetryPolicy retryPolicy = new SimpleRetryPolicy();
